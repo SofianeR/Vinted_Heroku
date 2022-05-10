@@ -24,6 +24,7 @@ router.post("/user/signup", async (req, res) => {
 
         const pictureToUpload = req.files.avatar.path;
         const result = await cloudinary.uploader.upload(pictureToUpload);
+        console.log(result);
 
         const newUser = new User({
           email: req.fields.email.toLowerCase(),
