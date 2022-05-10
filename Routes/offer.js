@@ -15,6 +15,10 @@ router.post("/offer/post", isLogged, async (req, res) => {
     if (req.fields.title && req.fields.price) {
       const user = req.user;
 
+      const pictureToUpload = req.files.picture.path;
+      console.log(pictureToUpload);
+      const resultUpload = await cloudinary.uploader.upload(pictureToUpload);
+
       const newOffer = new Offer({
         product_name: req.fields.title,
         product_descritpion: req.fields.description,
@@ -29,13 +33,8 @@ router.post("/offer/post", isLogged, async (req, res) => {
         owner: user,
       });
 
-      // const pictureToUpload = req.files.picture.path;
-      // const resultUpload = await cloudinary.uploader.upload(pictureToUpload, {
-      //   folder: `/vinted-react/offers/`,
-      //   public_id: `${req.fields.title} - ${newOffer._id} - ${user._id}`,
-      // });
-
-      // newOffer.product_image = { picture: resultUpload };
+      newOffer.product_image = resultUpload;
+      console.log("there");
 
       await newOffer.save();
 
