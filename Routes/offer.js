@@ -23,10 +23,10 @@ router.post("/user/signup", async (req, res) => {
         const hash = SHA256(req.fields.password + salt).toString(encBase64);
         const token = uid2(32);
 
-        if (req.fields.avatar) {
-          const pictureToUpload = req.files.avatar.path;
-          const result = await cloudinary.uploader.upload(pictureToUpload);
-        }
+        // if (req.fields.avatar) {
+        //   const pictureToUpload = req.files.avatar.path;
+        //   const result = await cloudinary.uploader.upload(pictureToUpload);
+        // }
 
         const newUser = new User({
           email: req.fields.email.toLowerCase(),
