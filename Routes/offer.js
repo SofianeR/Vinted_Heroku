@@ -85,9 +85,9 @@ router.get("/offers", async (req, res) => {
       : (pagination.limit = 25);
 
     pagination.skip = (pagination.page - 1) * pagination.limit;
-
+    console.log(pagination.sort);
     const Offers = await Offer.find(filter)
-      .sort(pagination.sort)
+      .sort({ product_price: pagination.sort })
       .skip(pagination.skip)
       .limit(pagination.limit)
       .populate("owner", "-hash -token -salt -newsletter -email -__v");
